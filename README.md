@@ -4,11 +4,11 @@ sogang-univ_caps-1-project
 
 ## rules
 * PULL BEFORE PUSH!
-* 
+  
 git push하기 전에 항상 git pull을 통해 최신 버전을 유지해주세요.
 
 * NOTICE AFTER PUSH!
-* 
+
 git push후에 항상 팀원들에게 알려주세요.
 
 * 1 feature, 1 branch <br>
