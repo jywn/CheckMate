@@ -12,3 +12,7 @@ def input_parser(request):
         input_string = data['input_string']
         # GPT parse data into JSON
         parsed_result = call_gpt_parser(input_string)
+
+        # upload on model
+
+        # response the parsed result in JSON

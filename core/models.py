@@ -35,7 +35,6 @@ class SubTask(models.Model):
     # 상태 필드
     STATUS_CHOICES = [
         ('WILL'),
-        ('DOING'),
         ('DONE'),
     ]
     status = models.CharField(max_length=5, choices=STATUS_CHOICES, default='WILL')
