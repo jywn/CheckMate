@@ -1,7 +1,7 @@
 import openai
 
 # OpenAI API 키 설정
-openai.api_key = "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"
+openai.api_key = ""
 
 def STT_whisper(input_voice):
     # 오디오 파일 열기
