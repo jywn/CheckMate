@@ -1,4 +1,3 @@
-
 from openai import OpenAI
 
 template = """
@@ -39,6 +38,7 @@ The end format is the same as the start date, but just make the time 230000Z. If
 
 def call_gpt_parser(input_string):
     client = OpenAI(
+        api_key="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"
     )
 
     completion = client.chat.completions.create(
@@ -46,7 +46,8 @@ def call_gpt_parser(input_string):
         model="gpt-4o",
         messages=[
             {"role": "system", "content": template},
-            {"role": "user", "content": input_string},
+            {"role": "user", "content": ""},
         ]
     )
+    print("result: ", completion.choices[0].message.content)
     return completion.choices[0].message.content
