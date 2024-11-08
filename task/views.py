@@ -11,6 +11,7 @@ from task.serializers import TaskSerializer, SubTaskSerializer
 # 빈 쿼리일 가능성이 높은 경우 -> filter
 # 빈 쿼리여도 error가 아닌 경우 -> filter
 
+@api_view(['GET'])
 def display_tasks(request, user_id):
     """
     return Tasks as JSON
@@ -24,6 +25,7 @@ def display_tasks(request, user_id):
     serializer = TaskSerializer(tasks, fields=fields, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
 def display_subtasks(request, user_id, task_id):
     """
     return SubTasks as JSON
@@ -38,6 +40,7 @@ def display_subtasks(request, user_id, task_id):
     serializer = SubTaskSerializer(sub_tasks, fields=fields, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
 def complete_subtask(request, user_id, task_id, subtask_id):
     """
     update SubTask status (WILL -> DONE)
@@ -67,4 +70,4 @@ def delete_task(request, user_id, task_id):
     """
     task = Task.objects.get(user_id=user_id, task_id=task_id)
     task.delete()
-    return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)1
+    return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
