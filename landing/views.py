@@ -16,11 +16,9 @@ def input_parser(request):
         # GPT parse data into JSON and into dict
         dict_result = json.loads(call_gpt_parser(input_string))
         # upload on model (...)
-        location = dict_result["location"]
-
-        Task.objects.create()
+        Task.objects.create(time=dict_result["time"], reminder=dict_result["reminder"]) # ...
         # response with result to show user the result
-
+        return None
 @csrf_exempt
 def input_string(request):
     return None
