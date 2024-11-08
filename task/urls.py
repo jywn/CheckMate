@@ -4,7 +4,6 @@ from task import views
 
 urlpatterns = [
     # main page of the task
-    path('', ),
     path('<int:user_id>/', views.display_tasks, name='display_tasks'),
     # display subtasks
     path('<int:user_id>/<int:task_id>/', views.display_subtasks, name='display_subtasks'),

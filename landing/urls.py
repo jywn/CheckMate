@@ -4,5 +4,5 @@ from django.urls import path, include
 from landing import views
 
 urlpatterns = [
-    path('input_parser/', views.input_parser, name='input_parser'),
+    path('create_task/', views.create_task, name='create_task'),
 ]

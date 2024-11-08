@@ -1,16 +1,17 @@
-from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from core.models import Task
 from core.models import SubTask
-from task.serializers import TaskSerializer, SubTaskSerializer
+from core.serializers import TaskSerializer, SubTaskSerializer
 
 # filter vs get_list_or_404
 # 자동 예외 처리가 필요한 경우 -> get_*_or_404
 # 빈 쿼리일 가능성이 높은 경우 -> filter
 # 빈 쿼리여도 error가 아닌 경우 -> filter
 
+@csrf_exempt
 @api_view(['GET'])
 def display_tasks(request, user_id):
     """
@@ -25,6 +26,7 @@ def display_tasks(request, user_id):
     serializer = TaskSerializer(tasks, fields=fields, many=True)
     return Response(serializer.data)
 
+@csrf_exempt
 @api_view(['GET'])
 def display_subtasks(request, user_id, task_id):
     """
@@ -40,6 +42,7 @@ def display_subtasks(request, user_id, task_id):
     serializer = SubTaskSerializer(sub_tasks, fields=fields, many=True)
     return Response(serializer.data)
 
+@csrf_exempt
 @api_view(['GET'])
 def complete_subtask(request, user_id, task_id, subtask_id):
     """
@@ -51,13 +54,14 @@ def complete_subtask(request, user_id, task_id, subtask_id):
     :param subtask_id: SubTask table key (subtask_id)
     :return: SubTask in JSON with HTTP status code (200/400)
     """
-    sub_task = SubTask.objects.get(task_id=task_id, subtask_id=subtask_id)
+    sub_task = SubTask.objects.get(user_id=user_id, task_id=task_id, subtask_id=subtask_id)
     serializer = SubTaskSerializer(sub_task, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
 @api_view(['DELETE'])
 def delete_task(request, user_id, task_id):
     """
