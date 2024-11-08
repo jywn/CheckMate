@@ -21,7 +21,7 @@ template = """
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-        api_key="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"
+        api_key=""
     )
 
     completion = client.chat.completions.create(
