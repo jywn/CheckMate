@@ -3,7 +3,7 @@ from django.db import models
 
 class Task(models.Model):
     #user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')
-
+    user_idx = models.IntegerField(default=1)  # 정수형 user_id 필드 추가
     # input includes
     # essential
     time = models.TimeField(null=False)
@@ -36,13 +36,20 @@ class Task(models.Model):
 
 class SubTask(models.Model):
     #user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subtasks')
+    user_idx = models.IntegerField(default=1)  # Task의 user_idx와 일치시키기 위해 추가
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
     STATUS_CHOICES = [
         ('WILL', 'Will'),
         ('DONE', 'Done'),
     ]
+
     status = models.CharField(max_length=5, choices=STATUS_CHOICES, default='WILL')
     title = models.CharField(max_length=255)
 
+    def save(self, *args, **kwargs):
+        # Task의 user_idx를 SubTask의 user_idx에 자동 할당
+        if self.task:
+            self.user_idx = self.task.user_idx
+        super(SubTask, self).save(*args, **kwargs)
     def __str__(self):
         return f"{self.title} - {self.status}"
