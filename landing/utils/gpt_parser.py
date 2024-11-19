@@ -38,7 +38,7 @@ Document = {document}
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-        api_key="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"
+
     )
 
     completion = client.chat.completions.create(
