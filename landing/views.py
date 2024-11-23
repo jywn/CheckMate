@@ -15,9 +15,12 @@ def create_task(request):
     :param request: HTTP request object
     :return: parsed Task with HTTP status code (201/400)
     """
-    parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
+    data1 = call_gpt_parser(request.data['input_string'])
+    parsed_data = json.loads(data1)
+    print(data1)
+    print(parsed_data)
+
     serializer = TaskSerializer(data=parsed_data)
-    print(3)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

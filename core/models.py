@@ -27,13 +27,16 @@ class Task(models.Model):
     ]
     status = models.CharField(max_length=5, choices=STATUS_CHOICES, default='WILL')
 
+    # for dashboard
+    created_at = models.DateTimeField(auto_now_add=True)  # 행이 추가된 시간을 자동 저장
+
     def __str__(self):
         return f"{self.title} - {self.status}"
 
 
 class SubTask(models.Model):
     task_id = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
-    sub_task_id = models.AutoField(primary_key=True)
+    subtask_id = models.AutoField(primary_key=True)
     STATUS_CHOICES = [
         ('WILL', 'Will'),
         ('DONE', 'Done'),

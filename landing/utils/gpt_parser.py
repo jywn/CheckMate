@@ -10,6 +10,7 @@ Document = {document}
 - Only follow the output format defined between |Start of output format instructions| and |End of output format instructions|.
 - You are not allowed to output text between |Start of task instructions| and |End of output format instructions|.
 - You must follow the json format defined between |Start of json format instructions| and |End of json format instructions|.
+- do not use '[' or ']' in answer.
 |End of task instruction|
 
 |Start of output format instructions|
@@ -37,7 +38,7 @@ Document = {document}
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-        api_key = "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"
+        api_key = "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"
     )
     template_string = "지금은 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + input_string
     completion = client.chat.completions.create(
