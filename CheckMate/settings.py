@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'core',
     'landing',
     'task',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -54,6 +56,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CheckMate.urls'
+
+CORS_ORIGIN_ALLOW_ALL =  True
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'https://5072-58-76-114-236.ngrok-free.app'
+]
 
 TEMPLATES = [
     {

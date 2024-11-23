@@ -7,8 +7,9 @@ Document = {document}
 |End of document|
 
 |Start of task instructions|
-- Only follow the output format defined.
-- You are not allowed to output text between |Start of task instructions| and |End of output format instructions|
+- Only follow the output format defined between |Start of output format instructions| and |End of output format instructions|.
+- You are not allowed to output text between |Start of task instructions| and |End of output format instructions|.
+- You must follow the json format defined between |Start of json format instructions| and |End of json format instructions|.
 |End of task instruction|
 
 |Start of output format instructions|
@@ -24,31 +25,28 @@ Document = {document}
 |End of output format instructions|
 
 |Start of json format instructions|
-[
-  [
+{
     "location": "파주 봉일천 중학교",
     "date": "202310041400",
     "people": "이민수",
-    "title": "이민수와 봉일천 중학교에서 14시",
-  ]
-]
+    "title": "이민수와 봉일천 중학교에서 14시"
+}
 
 |End of json format instructions|
 """
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-
+        api_key = "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"
     )
-
+    template_string = "지금은 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + input_string
     completion = client.chat.completions.create(
-        # AI model
         model="gpt-4o",
         messages=[
             {"role": "system", "content": template},
-            {"role": "user", "content": "지금은 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + input_string},
+            {"role": "user", "content": template_string},
         ]
     )
-    return completion.choices[0].message.content.strip("```").strip("json")
 
-print(call_gpt_parser("내일 오후 3시에 김태균을 만날거야."))
+    return completion.choices[0].message.content
+

@@ -21,9 +21,9 @@ def display_tasks(request, user_id):
     :param user_id: Task table key (user_id)
     :return: Tasks in JSON
     """
-    fields = request.query_params.getlist('fields')
-    tasks = Task.objects.filter(user_idx=1)
-    serializer = TaskSerializer(tasks, fields=fields, many=True)
+    #fields = request.query_params.getlist('fields')
+    tasks = Task.objects.filter()
+    serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
 
 @csrf_exempt
@@ -61,6 +61,7 @@ def complete_subtask(request, user_id, task_id, subtask_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @csrf_exempt
 @api_view(['DELETE'])
 def delete_task(request, user_id, task_id):
@@ -72,6 +73,6 @@ def delete_task(request, user_id, task_id):
     :param task_id: Task table key (task_id)
     :return: return completion message with HTTP status code (204)
     """
-    task = Task.objects.get(user_idx=1, task_id=task_id)
+    task = Task.objects.get(user_idx=1, id=task_id)
     task.delete()
     return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)

@@ -8,5 +8,6 @@ urlpatterns = [
     # display subtasks
     path('<int:user_id>/<int:task_id>/', views.display_subtasks, name='display_subtasks'),
     # complete subtask
-    path('<int:user_id>/<int:task_id>/<int:subtask_id>/complete', views.complete_subtask, name='complete_subtask'),
+    path('<int:user_id>/<int:task_id>/<int:subtask_id>/complete/', views.complete_subtask, name='complete_subtask'),
+    path('<int:user_id>/<int:task_id>/delete/', views.delete_task, name='delete_task'),
 ]
