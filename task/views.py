@@ -11,20 +11,11 @@ from core.models import SubTask
 from core.serializers import TaskSerializer, SubTaskSerializer
 from core.utils.gpt_parser import call_gpt_parser
 
-
-"""
-done -> post
-attach file -> MySQL, POST 
-add task without parsing -> post
-Notes = notepad, memojang
-done -> status change
-how reminder works?
-"""
-
 # filter vs get_list_or_404
 # 자동 예외 처리가 필요한 경우 -> get_*_or_404
 # 빈 쿼리일 가능성이 높은 경우 -> filter
 # 빈 쿼리여도 error가 아닌 경우 -> filter
+
 class TaskListCreateAPIView(APIView):
     """
     Display List of Tasks and Create Task
@@ -41,11 +32,16 @@ class TaskListCreateAPIView(APIView):
 
     def post(self, request):
         """
-        Create a Task via using GPT parser
-        :param request: 'input_string'
-        :return: parsed data in JSON
+        Create a Task, optionally using GPT parser
+        :param request: 'input_string' and optional 'use_gpt' flag
+        :return: Task data in JSON
         """
-        parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
+        use_gpt = request.data.get('use_gpt', True)
+        if use_gpt:
+            parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
+        else:
+            parsed_data = request.data
+
         serializer = TaskSerializer(data=parsed_data)
         if serializer.is_valid():
             serializer.save()
