@@ -4,7 +4,7 @@ from django.db import models
 class Task(models.Model):
     # essential
     task_id = models.AutoField(primary_key=True)
-    date = models.TimeField(null=False) # extract
+    date = models.DateTimeField(null=False) # extract
     reminder = models.BooleanField(default=False)
 
     # allowed

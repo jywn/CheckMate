@@ -52,7 +52,11 @@ class TaskListCreateAPIView(APIView):
         :param request: 'input_string'
         :return: parsed data in JSON
         """
-        parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
+        print(1)
+        data1 = call_gpt_parser(request.data['input_string'])
+        print("x: ", data1)
+        parsed_data = json.loads(data1)
+        print(2)
         serializer = TaskSerializer(data=parsed_data)
         if serializer.is_valid():
             serializer.save()
