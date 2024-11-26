@@ -1,154 +1,187 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.utils import json
+from rest_framework.views import APIView
+
 from core.models import Task
 from core.models import SubTask
 from core.serializers import TaskSerializer, SubTaskSerializer
+from core.utils.gpt_parser import call_gpt_parser
+
+
+"""
+FIX DATE FORMAT
+importance -> patch
+reminder -> patch
+done -> post
+attach file -> MySQL, POST 
+title -> patch
+description -> patch
+date -> patch
+add task without parsing -> post
+communicate with json
+Notes = notepad, memojang
+done -> status change
+how reminder works?
+"""
 
 # filter vs get_list_or_404
 # 자동 예외 처리가 필요한 경우 -> get_*_or_404
 # 빈 쿼리일 가능성이 높은 경우 -> filter
 # 빈 쿼리여도 error가 아닌 경우 -> filter
-
-@csrf_exempt
-@api_view(['GET'])
-def display_tasks(request):
+class TaskListCreateAPIView(APIView):
     """
-    return Tasks as JSON
-
-    :param request: HTTP request object
-    :return: Tasks in JSON
+    Display List of Tasks and Create Task
     """
-    tasks = Task.objects.filter()
-    serializer = TaskSerializer(tasks, many=True)
-    return Response(serializer.data)
+    def get(self, request):
+        """
+        Display Tasks
+        :param request:
+        :return: List of Tasks in JSON
+        """
+        tasks = Task.objects.filter()
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
 
-@csrf_exempt
-@api_view(['GET'])
-def display_task(request, task_id):
-    """
-    return Task as JSON
+    def post(self, request):
+        """
+        Create a Task via using GPT parser
+        :param request: 'input_string'
+        :return: parsed data in JSON
+        """
+        parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
+        serializer = TaskSerializer(data=parsed_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    :param request: HTTP request object
-    :param task_id: Task table key (task_id)
-    :return: Task in JSON
+class TaskDetailAPIView(APIView):
     """
-    tasks = Task.objects.filter(task_id=task_id)
-    serializer = TaskSerializer(tasks, many=True)
-    return Response(serializer.data)
-
-@csrf_exempt
-@api_view(['PATCH'])
-def update_task(request, task_id):
+    Display a Task, Update a Task, Delete a Task
     """
-
-    :param request:
-    :param task_id:
-    :return:
-    """
-    task = Task.objects.get(task_id=task_id)
-    serializer = TaskSerializer(task, data=request.data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
+    def get(self, request, task_id):
+        """
+        Display a Task
+        :param request:
+        :param task_id:
+        :return: A Task in JSON
+        """
+        task = get_object_or_404(Task, task_id=task_id)
+        serializer = TaskSerializer(task)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-@api_view(['DELETE'])
-def delete_task(request, task_id):
-    """
-    delete Task (NOT COMPLETE)
+    def patch(self, request, task_id):
+        """
+        Update a Task
+        :param request:
+        :param task_id:
+        :return: A Task in JSON
+        """
+        task = get_object_or_404(Task, task_id=task_id)
+        serializer = TaskSerializer(task, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    :param request: HTTP request object
-    :param task_id: Task table key (task_id)
-    :return: return completion message with HTTP status code (204)
-    """
-    task = Task.objects.get(task_id=task_id)
-    task.delete()
-    return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+    def delete(self, request, task_id):
+        """
+        Delete a Task
+        :param request:
+        :param task_id:
+        :return: Status message and HTTP code
+        """
+        task = Task.objects.get(task_id=task_id)
+        task.delete()
+        return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
-@csrf_exempt
-@api_view(['POST'])
-def add_subtask(request, task_id):
+class SubTaskListCreateAPIView(APIView):
     """
+    Display List of SubTasks and Create SubTask
+    """
+    def get(self, request, task_id):
+        """
+        Display SubTask
+        :param request:
+        :param task_id:
+        :return: List of SubTasks in JSON
+        """
+        subtasks = SubTask.objects.filter(task_id=task_id)
+        serializer = SubTaskSerializer(subtasks, many=True)
+        return Response(serializer.data)
 
-    :param request:
-    :param task_id:
-    :return:
-    """
-    data = request.data.copy()
-    data['task_id'] = task_id
-    serializer = SubTaskSerializer(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, task_id):
+        """
+        Create a SubTask
+        :param request: SubTask model information
+        :param task_id:
+        :return: data in JSON
+        """
+        data = request.data.copy()
+        data['task_id'] = task_id
+        serializer = SubTaskSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-@api_view(['GET'])
-def display_subtasks(request, task_id):
-    """
-    return subtask as JSON
 
-    :param request: HTTP request object
-    :param task_id: subTask table key (task_id)
-    :return: subtasks in JSON
+class SubTaskDetailAPIView(APIView):
     """
-    subtasks = SubTask.objects.filter(task_id=task_id)
-    serializer = SubTaskSerializer(subtasks, many=True)
-    return Response(serializer.data)
+    Display a SubTask, Update a SubTask, Delete a SubTask
+    """
+    def get(self, request, task_id, subtask_id):
+        """
+        Display a SubTask
+        :param request:
+        :param task_id:
+        :param subtask_id:
+        :return: A SubTask in JSON
+        """
+        subtask = SubTask.objects.filter(task_id=task_id, subtask_id=subtask_id)
+        serializer = SubTaskSerializer(subtask, many=True)
+        return Response(serializer.data)
 
-@csrf_exempt
-@api_view(['GET'])
-def display_subtask(request, task_id, subtask_id):
-    """
-    return subTask as JSON
+    def patch(self, request, task_id, subtask_id):
+        """
+        Update a SubTask
+        :param request:
+        :param task_id:
+        :param subtask_id:
+        :return: A SubTask in JSON
+        """
+        subtask = SubTask.objects.get(task_id=task_id, subtask_id=subtask_id)
+        serializer = SubTaskSerializer(subtask, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    :param request: HTTP request object
-    :param task_id: subTask table key (task_id)
-    :param subtask_id: subTask table key (subtask_id)
-    :return: subTask in JSON
-    """
-    subtask = SubTask.objects.filter(task_id=task_id, subtask_id=subtask_id)
-    serializer = TaskSerializer(subtask, many=True)
-    return Response(serializer.data)
-
-@csrf_exempt
-@api_view(['PATCH'])
-def update_subtask(request, task_id, subtask_id):
-    """
-
-    :param request:
-    :param task_id:
-    :param subtask_id:
-    :return:
-    """
-    subtask = SubTask.objects.get(task_id=task_id, subtask_id=subtask_id)
-    serializer = SubTaskSerializer(subtask, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@csrf_exempt
-@api_view(['DELETE'])
-def delete_subtask(request, task_id, subtask_id):
-    """
-    delete subtask
-
-    :param request: HTTP request object
-    :param task_id: Task table key (task_id)
-    :param subtask_id: subtask table key (subtask_id)
-    :return: return completion message with HTTP status code (204)
-    """
-    task = SubTask.objects.get(task_id=task_id, subtask_id=subtask_id)
-    task.delete()
-    return Response({"message": "Task and related SubTasks deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+    def delete(selfs, request, task_id, subtask_id):
+        """
+        Delete a SubTask
+        :param request:
+        :param task_id:
+        :param subtask_id:
+        :return: Status message and HTTP code
+        """
+        task = SubTask.objects.get(task_id=task_id, subtask_id=subtask_id)
+        task.delete()
+        return Response({"message": "Task and related SubTasks deleted successfully."},
+                        status=status.HTTP_204_NO_CONTENT)
 
 @csrf_exempt
 @api_view(['GET'])
 def display_recently_added(request):
+    """
+    Display recently added Tasks
+    :param request:
+    :return: List of Tasks ordered by created-date in JSON
+    """
     tasks = Task.objects.filter().order_by('-created_at')
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
@@ -156,6 +189,11 @@ def display_recently_added(request):
 @csrf_exempt
 @api_view(['GET'])
 def display_in_progress(request):
+    """
+    Display Tasks in progress
+    :param request:
+    :return: List of Tasks ordered by date in JSON
+    """
     tasks = Task.objects.filter(status='DOING').order_by('-date')
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
@@ -163,6 +201,11 @@ def display_in_progress(request):
 @csrf_exempt
 @api_view(['GET'])
 def display_reviews(request):
+    """
+    Display Tasks in review
+    :param request:
+    :return: List of Tasks ordered by date in JSON
+    """
     tasks = Task.objects.filter(status='DONE').order_by('-date')
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)

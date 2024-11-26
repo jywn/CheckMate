@@ -38,7 +38,7 @@ Document = {document}
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-        api_key = "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"
+        api_key = "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"
     )
     template_string = "지금은 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + input_string
     completion = client.chat.completions.create(

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CheckMate.iml" filepath="$PROJECT_DIR$/.idea/CheckMate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../DRFTodo/.idea/DRFTodo.iml" filepath="$PROJECT_DIR$/../DRFTodo/.idea/DRFTodo.iml" />
     </modules>
   </component>
 </project>
