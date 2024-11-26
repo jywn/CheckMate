@@ -13,16 +13,9 @@ from core.utils.gpt_parser import call_gpt_parser
 
 
 """
-FIX DATE FORMAT
-importance -> patch
-reminder -> patch
 done -> post
 attach file -> MySQL, POST 
-title -> patch
-description -> patch
-date -> patch
 add task without parsing -> post
-communicate with json
 Notes = notepad, memojang
 done -> status change
 how reminder works?
@@ -52,11 +45,7 @@ class TaskListCreateAPIView(APIView):
         :param request: 'input_string'
         :return: parsed data in JSON
         """
-        print(1)
-        data1 = call_gpt_parser(request.data['input_string'])
-        print("x: ", data1)
-        parsed_data = json.loads(data1)
-        print(2)
+        parsed_data = json.loads(call_gpt_parser(request.data['input_string']))
         serializer = TaskSerializer(data=parsed_data)
         if serializer.is_valid():
             serializer.save()
