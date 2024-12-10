@@ -45,3 +45,6 @@ class SubTask(models.Model):
     title = models.CharField(max_length=255)
     def __str__(self):
         return f"{self.title} - {self.status}"
+
+class NotePad(models.Model):
+    note_pad = models.TextField(default="", blank=True, null=True)

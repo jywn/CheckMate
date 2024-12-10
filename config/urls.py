@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('task/', include('task.urls')),
+    path('note_pad/', include('core.urls')),
 ]
