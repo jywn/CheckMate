@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from core.models import Task, NotePad
+from core.models import Task, NotePad, File
 from core.models import SubTask
-from core.serializers import TaskSerializer, SubTaskSerializer, NotePadSerializer
+from core.serializers import TaskSerializer, SubTaskSerializer, NotePadSerializer, FileSerializer
 from core.utils.gpt_parser import call_gpt_parser
 
 
@@ -181,6 +181,36 @@ class SubTaskDetailAPIView(APIView):
         return Response({"message": "Task and related SubTasks deleted successfully."},
                         status=status.HTTP_204_NO_CONTENT)
 
+class FileListUploadAPIView(APIView):
+    def get(self,task_id):
+        files = File.objects.filter(task_id=task_id)
+        serializer = FileSerializer(files, many=True)
+        if FileSerializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, format=None):
+        serializer = FileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'File uploaded successfully!'}, status=201)
+        return Response(serializer.errors, status=400)
+
+class FileDetailAPIView(APIView):
+    def get(self, request, task_id, file_id):
+        file = File.objects.get(task_id=task_id, id=file_id)
+        serializer = FileSerializer(file, many=False)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, task_id, file_id):
+        file = File.objects.get(task_id=task_id, id=file_id)
+        file.delete()
+        return Response({"message": "File deleted successfully!"},)
+
+
 @csrf_exempt
 @api_view(['GET'])
 def display_recently_added(request):
@@ -216,4 +246,3 @@ def display_reviews(request):
     tasks = Task.objects.filter(status='DONE').order_by('-date')
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
-

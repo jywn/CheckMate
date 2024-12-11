@@ -88,10 +88,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydatabase',  # 생성한 데이터베이스 이름
+        'USER': 'checkmate', # 생성한 사용자 이름
+        'PASSWORD': '1234', # 설정한 비밀번호
+        'HOST': 'localhost',    # MySQL 서버 주소 (로컬이면 'localhost')
+        'PORT': '3306',         # MySQL 기본 포트
     }
 }
+
 
 
 # Password validation

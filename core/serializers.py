@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Task, SubTask, NotePad
+from core.models import Task, SubTask, NotePad, File
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -15,4 +15,9 @@ class SubTaskSerializer(serializers.ModelSerializer):
 class NotePadSerializer(serializers.ModelSerializer):
     class Meta:
         model = NotePad
+        fields = '__all__'
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskFile
         fields = '__all__'
