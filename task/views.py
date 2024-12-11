@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from core.models import Task, NotePad, File
+from core.models import Task, File
 from core.models import SubTask
-from core.serializers import TaskSerializer, SubTaskSerializer, NotePadSerializer, FileSerializer
+from core.serializers import TaskSerializer, SubTaskSerializer, FileSerializer
 from core.utils.gpt_parser import call_gpt_parser
 
 
@@ -52,14 +52,13 @@ class TaskListCreateAPIView(APIView):
         :param request: 'input_string'
         :return: parsed data in JSON
         """
-        dict_data = json.loads(request.data)
-        if dict_data['gpt'] == 'yes':
-            gpt_response_json = call_gpt_parser(dict_data['input_string'])
+        if request.data['gpt'] == 'yes':
+            gpt_response_json = call_gpt_parser(request.data['input_string'])
             gpt_response_dict = json.loads(gpt_response_json)
             serializer = TaskSerializer(data=gpt_response_dict, many=True)
 
         else:
-            serializer = TaskSerializer(data=dict_data)
+            serializer = TaskSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()

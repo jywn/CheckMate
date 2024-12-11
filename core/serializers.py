@@ -19,5 +19,5 @@ class NotePadSerializer(serializers.ModelSerializer):
 
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TaskFile
+        model = File
         fields = '__all__'
