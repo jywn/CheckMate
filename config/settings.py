@@ -60,7 +60,7 @@ CORS_ORIGIN_ALLOW_ALL =  True
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
-    'https://5072-58-76-114-236.ngrok-free.app'
+    'https://6c3b-163-239-255-162.ngrok-free.app',
 ]
 
 TEMPLATES = [

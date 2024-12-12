@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.utils import json
 from rest_framework.views import APIView
+import json
 
 from core.models import Task, File
 from core.models import SubTask
@@ -55,7 +55,8 @@ class TaskListCreateAPIView(APIView):
         if request.data['gpt'] == 'yes':
             gpt_response_json = call_gpt_parser(request.data['input_string'])
             gpt_response_dict = json.loads(gpt_response_json)
-            serializer = TaskSerializer(data=gpt_response_dict, many=True)
+            print("dict: ", gpt_response_dict)
+            serializer = TaskSerializer(data=gpt_response_dict)
 
         else:
             serializer = TaskSerializer(data=request.data)
