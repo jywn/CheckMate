@@ -26,7 +26,7 @@ Document = {document}
 |Start of json format instructions|
 {
   "location": "파주 봉일천 중학교",
-  "date": "2023-10-04-T14:00",
+  "date": "2023-10-04 T14:00",
   "people": "이민수",
   "title": "이민수와 봉일천 중학교에서 14시" 
 }
@@ -36,7 +36,7 @@ Document = {document}
 
 def call_gpt_parser(input_string):
     client = OpenAI(
-        api_key = "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"
+        api_key = ""
     )
     template_string = "지금은 " + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + input_string
     completion = client.chat.completions.create(

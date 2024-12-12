@@ -13,7 +13,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)  # extract
     importance = models.IntegerField(choices=[(i, i) for i in range(6)], default=0)
 
-    # in dash_board
+    # in dash_boardㅊ
     description = models.TextField(blank=True, null=True)
 
     # in review

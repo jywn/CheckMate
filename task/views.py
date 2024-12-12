@@ -52,6 +52,7 @@ class TaskListCreateAPIView(APIView):
         :param request: 'input_string'
         :return: parsed data in JSON
         """
+        print("body: ", request.body)
         if request.data['gpt'] == 'yes':
             gpt_response_json = call_gpt_parser(request.data['input_string'])
             gpt_response_dict = json.loads(gpt_response_json)
