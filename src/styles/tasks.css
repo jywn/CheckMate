@@ -1,0 +1,824 @@
+/* Default styling for task cards (e.g., in Dashboard) */
+/* .task-main-container {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+} */
+
+.task-list,
+.task-preview,
+.tasks-page-list {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 600px;
+}
+
+/* Default task card styling */
+.task-card {
+  background-color: #fff;
+  border-left: 5px solid #ff6f61;
+  padding: 15px;
+  margin: 1rem 0;
+  border-radius: 10px;
+  flex:1;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-card h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.task-card p {
+  margin: 5px 0;
+  color: #777;
+}
+
+/* Tag styling inside task cards */
+.task-tags {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+.datetime input[type="datetime-local"],
+.tag {
+  display: flex;
+  align-items: center;  
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+/* Tag color variations */
+.datetime input[type="datetime-local"],
+.datetime {
+  background-color: #e6e6ff;
+  color: #5a5ad6;
+}
+/* Importance button styling */
+/* Default styling for importance */
+.importance {
+  background-color: #ffe6e6; /* Default light red background */
+  color: #d65a5a; /* Default red text */
+  position: relative;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: relative; /* To position the dropdown */
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Dropdown container for stars */
+.importance-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -19px;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 0 5px 5px 5px ;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 5px;
+  z-index: 10;
+  border-radius: 5px;
+}
+.importance-dropdown span {
+font-size: 12px;
+}
+/* Stars inside the dropdown */
+.importance-dropdown .star {
+  cursor: pointer;
+  /* font-size: 24px; */
+  color: #ffc107; /* Golden star color */
+  transition: transform 0.2s ease;
+}
+
+.importance-dropdown .star:hover {
+  transform: scale(1.5); /* Slightly enlarge the star on hover */
+}
+
+
+
+/* Reminder button styling */
+
+.tag.reminder {
+  cursor: pointer; 
+  background-color: #fff; 
+  border: 1px solid #a0a0a0;
+  color: #333;
+  transition: all 0.3s ease; 
+}
+
+.tag.reminder.on {
+  border: 1px solid #4caf50;
+  background-color: #fff; 
+  color: #4caf50;
+}
+
+
+/* Specific styling for task cards in TasksPage */
+.tasks-header-container{
+  display: flex;
+  justify-content: space-between;
+}
+.add-task-button{margin-right: 7rem;}
+.tasks-page-list .task-card {
+  background-color: #f9f9f9;
+  border-left: 5px solid #4caf50; /* Different color border for TasksPage */
+  padding: 20px;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tasks-page-list .task-card h4 {
+  font-size: 20px;
+  color: #333;
+}
+
+.tasks-page-list .task-card p {
+  color: #555;
+}
+
+.tasks-page-list .tag {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Two-column layout for TasksPage with To Do and In Progress sections */
+.tasks-page-content > div{
+width: 100%;
+}
+.tasks-page-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 90%; 
+  margin: 4rem auto; 
+}
+/* .tasks-page .task-card {
+  margin: 1.2rem 2rem;
+} */
+
+.tasks-column {
+  flex: 1;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-column h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.task-list {
+  margin-top: 30px;
+  text-align: left;
+  max-width: 600px;
+}
+
+.task-card-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 15px;
+  margin-bottom: 10px;
+  /* transition: box-shadow 0.3s ease; */
+}
+
+.tasks-page .task-card {
+  background-color: #fff;
+  border-left: 5px solid #4caf50; /* Green border */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.task-card:hover {
+  transform: scale(1.01);
+}
+
+/* Delete Button Style */
+.delete-button {
+  width: 20px;
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: 1.5rem;
+  right: 0.5rem;
+  transition: all 0.3s;
+}
+.tasks-page .delete-button{
+  top: 0.3rem;
+  right: 1rem;
+}
+
+.delete-button:hover {
+  background-color: #ff6f61;
+}
+
+.delete-icon {
+  opacity: 0;
+}
+
+.delete-button:hover .delete-icon {
+  opacity: 1;
+}
+
+/* Icon styling for attachment and comment */
+.task-icons {
+  display: flex;
+  gap: 0.5rem;
+  right: 2.7rem;
+  top: 0.2rem;
+  position: absolute;
+}
+
+/* Tag Styles */
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Importance Dropdown */
+.importance-dropdown {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.star {
+  font-size: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Done Button */
+.tag.done {
+  background-color: gray;
+  color: white;
+  margin-left: auto;
+  padding: 5px 15px;
+}
+
+.tag.done:hover {
+  background-color: green;
+}
+
+
+
+/* Comment Icon */
+.icon.comment-icon{
+  font-size: 20px;
+}
+.icon.attachment-icon{
+  font-size: 18px;
+}
+/* Comment Modal */
+.comment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.comment-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.comment-box h3 {
+  margin-bottom: 10px;
+}
+
+.comment-box textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.comment-box button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;}
+  
+
+.comment-box button:first-of-type {
+  background: #28a745;
+  color: white;
+}
+
+.comment-box button:last-of-type {
+  background: #dc3545;
+  color: white;
+}
+
+/* Shared styling for comment and attachment icons */
+.icon.comment-icon,
+.icon.attachment-icon {
+  color: gray; /* Default color */
+  transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Change color on hover */
+.icon.comment-icon:hover,
+.icon.attachment-icon:hover {
+  color: #636ae8; /* Highlight color */
+  transform: scale(1.07);
+}
+
+/* Specific coloring based on state */
+.icon.comment-icon.active,
+.icon.attachment-icon.active {
+  color: #636ae8; /* Active state color */
+}
+
+
+/* Task modification styling */
+
+.task-card input,
+.task-card textarea
+{
+  border: none;
+  outline: none;
+  width: 80%;
+  text-align: left;
+}
+
+.task-tags input[type="datetime-local"]{
+  margin: 0 0.1rem;
+  border: none;
+  background: #e6e6ff;
+  outline: none;
+  width: 100%;
+  text-align: center;
+}
+
+
+/* manual task craetion container */
+
+
+
+/* Importance and Reminder Buttons in New Task */
+.new-task-card .task-tags {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.new-task-card .tag {
+
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Importance Styling */
+
+/* Styling for the New Task Card */
+.new-task-card {
+  background-color: #fdf9f3; /* Light beige background for differentiation */
+  border-left: 5px solid #ffa500; /* Orange border for new task */
+  padding: 15px;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Styling for the inputs in the New Task Card */
+.new-task-card input,
+.new-task-card textarea {
+  width: 100%;
+  border-bottom: 0.5px solid gray;
+  border-radius: 0;
+  padding-inline: 5px ;
+  width: 80%;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.new-task-card input:focus,
+.new-task-card textarea:focus {
+  border-color: #4caf50; /* Green border on focus */
+}
+
+/* Styling for the time input */
+.new-task-card input[type="datetime-local"] {
+  max-width: 200px;
+  background-color: #e6e6ff;
+  color: #5a5ad6;
+  text-align: center;
+}
+
+/* Tags Container for Importance and Reminder */
+.new-task-card .task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Reminder Button Styling */
+.new-task-card .tag.reminder {
+  background-color: #f0f0f0; /* Default gray background */
+  color: #a0a0a0; /* Default gray text */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.new-task-card .tag.reminder.on {
+  border: 1px solid  #4caf50;
+  background-color: #fff; /* Light green background */
+  color: #4caf50; /* Green text for active state */
+}
+
+/* Importance Button Styling */
+.new-task-card .tag.importance {
+  background-color: #ffe6e6; /* Light red background */
+  color: #d65a5a; /* Red text */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.new-task-card .tag.importance:hover {
+  background-color: #fdd;
+  color: #b04040; /* Darker red on hover */
+}
+
+/* Save and Cancel Buttons */
+.new-task-card .task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.new-task-card .task-actions button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.new-task-card .task-actions button:first-of-type {
+  background-color: #4caf50; /* Green for Save */
+  color: white;
+}
+
+.new-task-card .task-actions button:last-of-type {
+  background-color: #f44336; /* Red for Cancel */
+  color: white;
+}
+
+.new-task-card .task-actions button:hover:first-of-type {
+  background-color: #388e3c; /* Dark green on hover */
+}
+
+.new-task-card .task-actions button:hover:last-of-type {
+  background-color: #d32f2f; /* Dark red on hover */
+}
+
+
+
+
+
+.task-card.done{
+  background-color: #fff; /* Light green */
+  border: none; /* Green border */
+  box-shadow:0px 0 6px 0.2px rgba(0, 0, 0, 0.2);
+  color: #000; /* Black text for DONE status */
+}
+
+.task-card.done  button{
+  
+}
+.task-card.done .tag{
+  background-color: #f2f2f2; 
+  color: #808080;
+  border: none;
+}
+/* Task Card Styling for "To Do" Status */
+.task-card.to-do {
+  background-color: #f8d7da; /* Light red */
+  border: 1px solid #f5c6cb; /* Red border */
+  color: #a0a0a0; /* Gray text for other statuses */
+}
+
+/* Styling for "Complete" Button */
+.task-btn.complete-btn {
+  padding: 10px 15px;
+  background-color: #28a745; /* Green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-btn.complete-btn:hover {
+  background-color: #dc3545; /* Darker green */
+}
+
+/* Styling for "Uncomplete" Button */
+.task-btn.uncomplete-btn {
+  padding: 10px 15px;
+  background-color: #218838; /* Red */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-btn.uncomplete-btn:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+/* Gray-out text for statuses other than DONE */
+.task-card.to-do * {
+  color: #a0a0a0; /* Override all child text to gray */
+}
+
+
+
+
+
+.sub-dropdown-container {
+  position: relative; /* Ensure positioning is relative to the task-card */
+  margin-top: 10px; /* Space above sub-task input */
+}
+
+.sub-dropdown-button {
+  display: none;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  position:absolute;
+  bottom: -3rem;
+  right:-1rem;
+}
+
+.task-card-container:hover .sub-dropdown-button {
+  display: block;
+}
+
+.subtask-input{
+  width: 100%;
+  position: relative;
+}
+
+.subtask-actions{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.subtask-input input{
+  border-bottom: 0.5px solid gray;
+  border-radius: 0;
+  font-size: 0.99rem;
+  padding: 3px;
+  margin: 0rem 0 1rem 1rem;
+  margin: 0.8rem 0;
+}
+.subtask-input input {
+  width: 100%; /* Make the input span full width */
+  box-sizing: border-box; /* Include padding in width */
+  white-space: pre-wrap; /* Allow wrapping for spaces */
+  word-wrap: break-word; /* Wrap words longer than 60 characters */
+  overflow-wrap: break-word; /* Break words if necessary */
+  display: block;
+  height: auto; /* Adjust height dynamically */
+}
+.subtask-item label {
+  display: block; /* Ensure text appears on new lines */
+  word-wrap: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Break words to fit */
+  white-space: pre-wrap; /* Preserve spaces and wrap text */
+}
+
+.subtask-item input{
+  cursor: pointer;
+}
+.subtask-item{
+  display: grid;
+    grid-template-columns: 0.5fr 0.5fr 6fr;
+    grid-gap: 0.5rem;
+    font-size: 0.99rem;
+    margin: 0.8rem 0 0 0.5rem;
+}
+
+.delete-subicon{
+  color: black;
+  padding: 0;
+  margin: 0;
+  width: 45%;
+  color: gray;
+  height: 99%;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.delete-subicon:hover{
+  transform: scale(1.3);
+  color: #5a5ad6;
+}
+
+.delete-subtask:hover{
+  background: #fff;
+
+}
+
+
+.attachment-dropdown {
+  display: block; /* Hidden by default */
+  position: absolute;
+  top: 30px; /* Position below the icon */
+  left: 0;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 10;
+}
+
+.icon.attachment-icon:hover .attachment-dropdown {
+  display: flex; /* Show on hover */
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 5px; /* Space between buttons */
+}
+
+.dropdown-button {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #636ae8;
+  color: white;
+  font-size: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dropdown-button:hover {
+  background: #4b53c7; /* Darker shade on hover */
+}
+
+
+.files-container  h4{
+  margin-top: 1rem;
+}
+
+.files-container ul li {
+  list-style: none;
+  color: gray;
+  margin:  0.3rem 1rem;
+  cursor: pointer;
+}
+
+.delete-file{
+  position: relative;
+  top: 0.12rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.delete-file:hover{
+  transform: scale(1.1);
+  color: #4b53c7;
+}
+
+
+/* notes styling */
+
+.header-input-container{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.note-input{
+  margin-top: 1rem;
+}
+.note-input textarea{
+  width: 50em;
+  padding: 5px 14px;
+  height: 1.7rem;
+  margin: 5px;
+  
+}
+
+.notes-container {
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 1;
+  justify-content: left;
+  flex-direction: row;
+}
+
+/* Default styling for note container */
+.note-main-container {
+  margin: 0.5rem;
+  border-radius: 7px;
+  border: 1px solid gray;
+  background-color: #636ae84d;
+}
+
+/* Add even padding when exactly 6 notes are present */
+.notes-container:has(> .note-main-container:nth-child(6)):has(> .note-main-container:nth-last-child(1)) {
+  padding-left: 4rem; /* Example of increased padding */
+  padding-right: 4rem;
+  justify-content: center; /* Center the notes as well */
+}
+
+
+
+
+.note-actions{
+  position: relative;
+  bottom: -3.3rem;
+  width: 71%;
+  margin: 0;
+  padding: 0;
+  right: -7.3rem;
+}
+.note p{
+  padding:1rem ;
+}
+
+.note textarea{
+  background-color: inherit;
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  height: 8rem;
+  width: 12.1rem;
+}
+
+.note  button{
+  background-color: #fff;
+  padding: 9px;
+  margin: 4px;
+}
+
+
+.done-btn button{
+  position: relative;
+  top: -3.3rem;
+  right: -2.4rem;
+}

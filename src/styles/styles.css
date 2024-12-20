@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation container for fixed navbar */
+.navigation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #fff; /* Ensure the navbar has a background */
+}
+
+/* Main content area pushed below navbar height */
+.main-content {
+  padding-top: 4.2rem; /* Offset equal to navbar height (4rem) */
+  position: relative;
+  z-index: 1; /* Lower z-index to keep it under the navbar */
+}
+
+/* Navbar styles */
+nav {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(99, 106, 232, 0.6);
+  background-color: #fff; /* Add a solid background */
+}
+
+/* Navbar layout and styling */
+.nav-main-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.nav-main-container > div > h1 {
+  position: relative;
+  float: left;
+  font-size: 2rem;
+}
+
+.icons-box {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fa-gear,
+.fa-user {
+  transition: transform 2s ease;
+}
+
+.fa-user:hover,
+.fa-gear:hover {
+  color: #636ae8;
+  font-size: 1.4rem;
+  transform: scale(1.007);
+}
+
+.fa-gear:hover {
+  transform: rotate(360deg);
+}
+
+.nav-links-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.nav-links-container a {
+  background-image: linear-gradient(#636ae8, #636ae8);
+  background-size: 0% 0.1em;
+  background-position-y: 100%;
+  background-position-x: 50%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s ease-in-out;
+  color: #636ae8;
+}
+
+.nav-links-container a:hover,
+.nav-links-container a:focus,
+.nav-links-container a:active {
+  background-size: 100% 0.1em;
+  color: #636ae8;
+}
